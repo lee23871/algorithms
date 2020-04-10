@@ -25,6 +25,8 @@ class CheapLetterDeletionTest {
             Arguments.of("abccbd", new int[]{0, 1, 2, 3, 4, 5}, 2),
             Arguments.of("aabbcc", new int[]{1, 2, 1, 2, 1, 2}, 3),
             Arguments.of("aaaa", new int[]{3, 4, 5, 6}, 12),
+            Arguments.of("aaaa", new int[]{6, 5, 4, 3}, 12),
+            Arguments.of("aaaa", new int[]{1, 2, 1, 2}, 4),
             Arguments.of("ababa", new int[]{10, 5, 10, 5, 10}, 0)
         );
     }
