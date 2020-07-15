@@ -10,23 +10,34 @@ import java.util.stream.Collectors;
 public class GenomicRangeQuery {
 
     public int[] solution(String S, int[] P, int[] Q) {
-        int m = P.length;
-        int[] result = new int[m];
+        int[][] dnaMap = new int[4][S.length()];
+        dnaMap[0][0] = S.charAt(0) == 'A' ? 1 : 0;
+        dnaMap[1][0] = S.charAt(0) == 'C' ? 1 : 0;
+        dnaMap[2][0] = S.charAt(0) == 'G' ? 1 : 0;
+        dnaMap[3][0] = S.charAt(0) == 'T' ? 1 : 0;
 
-        for (int i = 0; i < m; i++) {
-            String geneStr = S.substring(P[i], Q[i] + 1)
-                .chars()
-                .distinct()
-                .collect(StringBuilder::new,
-                    (sb, ch) -> sb.append((char)ch),
-                    StringBuilder::append)
-                .toString();
-
-            result[i] = geneStr.contains("A") ? 1 :
-                geneStr.contains("C") ? 2 :
-                    geneStr.contains("G") ? 3 : 4;
+        for (int i = 1; i < S.length(); i++) {
+            dnaMap[0][i] = dnaMap[0][i - 1] + (S.charAt(i) == 'A' ? 1 : 0);
+            dnaMap[1][i] = dnaMap[1][i - 1] + (S.charAt(i) == 'C' ? 1 : 0);
+            dnaMap[2][i] = dnaMap[2][i - 1] + (S.charAt(i) == 'G' ? 1 : 0);
+            dnaMap[3][i] = dnaMap[3][i - 1] + (S.charAt(i) == 'T' ? 1 : 0);
         }
 
+        int[] result = new int[P.length];
+        for (int i = 0; i < P.length; i++) {
+            int min = P[i];
+            int max = Q[i];
+
+            if (min == 0) {
+                result[i] = dnaMap[0][max] > 0 ? 1 :
+                    dnaMap[1][max] > 0 ? 2 :
+                        dnaMap[2][max] > 0 ? 3 : 4;
+            } else {
+                result[i] = dnaMap[0][min - 1] != dnaMap[0][max] ? 1 :
+                    dnaMap[1][min - 1] != dnaMap[1][max] ? 2 :
+                        dnaMap[2][min - 1] != dnaMap[2][max] ? 3 : 4;
+            }
+        }
         return result;
     }
 
