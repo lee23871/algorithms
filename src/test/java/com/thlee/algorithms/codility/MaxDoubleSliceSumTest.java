@@ -26,6 +26,8 @@ class MaxDoubleSliceSumTest {
 
     private static Stream<Arguments> arguments() {
         return Stream.of(
+            Arguments.of(new int[]{-2, 1, 1, 1, 1, 1, -7}, 4),
+            Arguments.of(new int[]{-2, 1, 1, -1, 1, -10, -7}, 3),
             Arguments.of(new int[]{-2, -3, -4, 1, -5, -6, -7}, 1),
             Arguments.of(new int[]{-8, 10, 20, -5, -7, -4}, 30),
             Arguments.of(new int[]{0, 10, -5, -2, 0}, 10),
