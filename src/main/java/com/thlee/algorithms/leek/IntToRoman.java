@@ -19,6 +19,7 @@ public class IntToRoman {
         }
         if (num >= 400) {
             result += "CD";
+            num -= 400;
         }
 
         while (num >= 100) {

@@ -22,7 +22,8 @@ class IntToRomanTest {
     private static Stream<Arguments> arguments() {
         return Stream.of(
             Arguments.of(3, "III"),
-            Arguments.of(1994, "MCMXCIV")
+            Arguments.of(1994, "MCMXCIV"),
+            Arguments.of(400, "CD")
         );
     }
 }
