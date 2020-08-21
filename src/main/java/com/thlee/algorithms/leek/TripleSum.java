@@ -19,20 +19,30 @@ public class TripleSum {
                 (nums[k] + nums[k - 1] < counter)) {
                 continue;
             }
+
+            if (i != 0 && nums[i - 1] == nums[i]) {
+                continue;
+            }
+
             while (j < k) {
                 if (nums[j] + nums[k] == counter) {
-                    String tripletStr = String.format("%d%d%d", nums[i], nums[j], nums[k]);
-                    if (!resultStr.contains(tripletStr)) {
-                        List<Integer> triplet = Arrays.asList(nums[i], nums[j], nums[k]);
-                        result.add(triplet);
-                        resultStr.add(tripletStr);
-                    }
-                    j++;
-                    k--;
+
+                    List<Integer> triplet = Arrays.asList(nums[i], nums[j], nums[k]);
+                    result.add(triplet);
+                    do {
+                        j++;
+                    } while(j < k && nums[j] == nums[j - 1]);
+                    do {
+                        k--;
+                    } while(j < k && nums[k] == nums[k + 1]);
                 } else if(nums[j] + nums[k] < counter) {
-                    j++;
+                    do {
+                        j++;
+                    } while(j < k && nums[j] == nums[j - 1]);
                 } else {
-                    k--;
+                    do {
+                        k--;
+                    } while(j < k && nums[k] == nums[k + 1]);
                 }
             }
         }
